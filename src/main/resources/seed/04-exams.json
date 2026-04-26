@@ -1,0 +1,163 @@
+{
+  "exams": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "createdBy": "nimali.perera@hitech.lk",
+      "title": "O/L Mathematics Quiz 1",
+      "description": "Covers number systems, basic algebra, prime numbers, and introductory geometry.",
+      "totalMarks": "20.00",
+      "passingGradePct": "60.00",
+      "timeLimitMinutes": 30,
+      "maxAttempts": 2,
+      "availableFrom": "2026-04-20T08:00:00",
+      "availableUntil": "2026-05-10T23:59:00",
+      "resultRelease": "IMMEDIATE",
+      "resultsReleased": true,
+      "status": "ACTIVE",
+      "useRandomization": true
+    },
+    {
+      "courseCode": "DA-BIZ-201",
+      "createdBy": "dinesh.fernando@hitech.lk",
+      "title": "Business Studies Case Study",
+      "description": "Short written analysis of a Sri Lankan small business scenario covering key business functions.",
+      "totalMarks": "30.00",
+      "passingGradePct": "50.00",
+      "timeLimitMinutes": 45,
+      "maxAttempts": 1,
+      "availableFrom": "2026-04-25T09:00:00",
+      "availableUntil": "2026-05-15T23:59:00",
+      "resultRelease": "MANUAL",
+      "resultsReleased": false,
+      "status": "DRAFT",
+      "useRandomization": false
+    }
+  ],
+  "questions": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "questionType": "MCQ",
+      "questionText": "Which of the following is an example of a rational number?",
+      "points": "5.00",
+      "poolName": "Number Systems",
+      "sortOrder": 1,
+      "options": [
+        {"optionText": "3/4", "correct": true, "sortOrder": 1},
+        {"optionText": "√2", "correct": false, "sortOrder": 2},
+        {"optionText": "π", "correct": false, "sortOrder": 3},
+        {"optionText": "∞", "correct": false, "sortOrder": 4}
+      ]
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "questionType": "SHORT_ANSWER",
+      "questionText": "What term describes a number that has exactly two factors: 1 and itself?",
+      "points": "5.00",
+      "poolName": "Number Theory",
+      "sortOrder": 2,
+      "shortAnswerMethod": "EXACT_MATCH",
+      "expectedAnswer": "prime number"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "questionType": "ESSAY",
+      "questionText": "Explain the relationship between the diameter and circumference of a circle, and state the formula used.",
+      "points": "10.00",
+      "poolName": "Geometry",
+      "sortOrder": 3,
+      "rubric": "Award marks for correct formula (C = πd), explanation of π, and a clearly worked numerical example."
+    },
+    {
+      "courseCode": "DA-BIZ-201",
+      "examTitle": "Business Studies Case Study",
+      "questionType": "FILE_UPLOAD",
+      "questionText": "Upload your annotated business case study analysis as a PDF.",
+      "points": "30.00",
+      "poolName": "Case Study",
+      "sortOrder": 1,
+      "rubric": "Assess problem identification, analysis of business functions, and quality of recommendations.",
+      "allowedFileTypes": "pdf",
+      "maxFileSizeMb": 10
+    }
+  ],
+  "poolConfigs": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "poolName": "Number Systems",
+      "drawCount": 1
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "poolName": "Number Theory",
+      "drawCount": 1
+    }
+  ],
+  "attempts": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "student": "kasun.jayasinghe@student.hitech.lk",
+      "status": "GRADED",
+      "submittedAt": "2026-04-22T19:30:00",
+      "totalScore": "16.00",
+      "percentage": "80.00",
+      "passed": true,
+      "expiresAt": "2026-04-22T20:00:00"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "student": "ayesha.silva@student.hitech.lk",
+      "status": "SUBMITTED",
+      "submittedAt": "2026-04-23T18:10:00",
+      "totalScore": "10.00",
+      "percentage": "50.00",
+      "passed": false,
+      "expiresAt": "2026-04-23T18:40:00"
+    }
+  ],
+  "attemptAnswers": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "student": "kasun.jayasinghe@student.hitech.lk",
+      "questionText": "Which of the following is an example of a rational number?",
+      "answerText": "3/4",
+      "displayOrder": 1,
+      "gradeStatus": "CORRECT",
+      "scoreAwarded": "5.00",
+      "feedback": "Correct.",
+      "gradedBy": "nimali.perera@hitech.lk",
+      "gradedAt": "2026-04-22T20:10:00"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "student": "kasun.jayasinghe@student.hitech.lk",
+      "questionText": "Explain the relationship between the diameter and circumference of a circle, and state the formula used.",
+      "answerText": "The circumference of a circle equals π multiplied by its diameter. The formula is C = πd, where π is approximately 3.14159. This means for any circle, dividing the circumference by the diameter always gives π.",
+      "displayOrder": 3,
+      "gradeStatus": "MANUAL_GRADED",
+      "scoreAwarded": "6.00",
+      "feedback": "Good understanding of the formula; include a numerical worked example next time.",
+      "gradedBy": "nimali.perera@hitech.lk",
+      "gradedAt": "2026-04-22T20:12:00"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "examTitle": "O/L Mathematics Quiz 1",
+      "student": "ayesha.silva@student.hitech.lk",
+      "questionText": "Explain the relationship between the diameter and circumference of a circle, and state the formula used.",
+      "answerText": "The circumference is related to the diameter using the value of pi.",
+      "displayOrder": 3,
+      "flagged": true,
+      "gradeStatus": "MANUAL_PENDING",
+      "scoreAwarded": "0.00"
+    }
+  ]
+}

@@ -1,0 +1,536 @@
+{
+  "programs": [
+    {
+      "name": "Ordinary Level (O/L)",
+      "description": "Core O/L subjects covering Mathematics, Science, English, and Sinhala for Grade 6–11 students following the NIE national curriculum.",
+      "isActive": true
+    },
+    {
+      "name": "Advanced Level – Science Stream",
+      "description": "A/L Science subjects including Combined Mathematics, Physics, Chemistry, and related theory for Grade 12–13 students.",
+      "isActive": true
+    },
+    {
+      "name": "Advanced Level – Commerce Stream",
+      "description": "A/L Commerce subjects including Accounting, Business Studies, and Economics for Grade 12–13 students.",
+      "isActive": true
+    }
+  ],
+  "courses": [
+    {
+      "title": "O/L Mathematics",
+      "courseCode": "SE-JAVA-101",
+      "description": "Full O/L Mathematics syllabus covering number theory, algebra, geometry, trigonometry, and statistics following the NIE curriculum.",
+      "program": "Ordinary Level (O/L)",
+      "durationValue": 12,
+      "durationUnit": "WEEKS",
+      "courseFee": "45000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 30,
+      "thumbnailUrl": "frontend/assets/courses/maths.png",
+      "currentProgress": "Week 3: Algebra and Equations",
+      "status": "ACTIVE",
+      "instructors": ["nimali.perera@hitech.lk"]
+    },
+    {
+      "title": "A/L Business Studies",
+      "courseCode": "DA-BIZ-201",
+      "description": "A/L Business Studies covering production, marketing, human resources, financial management, and the Sri Lankan business environment.",
+      "program": "Advanced Level – Commerce Stream",
+      "durationValue": 8,
+      "durationUnit": "WEEKS",
+      "courseFee": "38000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 25,
+      "thumbnailUrl": "frontend/assets/courses/commerce.png",
+      "currentProgress": "Week 2: Business Environments and Stakeholders",
+      "status": "ACTIVE",
+      "instructors": ["dinesh.fernando@hitech.lk"]
+    },
+    {
+      "title": "Foundation Mathematics",
+      "courseCode": "MATH-FDN-100",
+      "description": "A bridging programme for students entering O/L, covering arithmetic, fractions, basic algebra, and essential study skills.",
+      "program": "Ordinary Level (O/L)",
+      "durationValue": 6,
+      "durationUnit": "WEEKS",
+      "courseFee": "0.00",
+      "enrollmentType": "ADMIN_ONLY",
+      "maxStudents": 40,
+      "thumbnailUrl": "frontend/assets/courses/maths.png",
+      "currentProgress": "Draft syllabus review",
+      "status": "DRAFT",
+      "instructors": ["dinesh.fernando@hitech.lk"]
+    },
+    {
+      "title": "O/L Sinhala Language & Literature",
+      "courseCode": "BM-COMM-110",
+      "description": "O/L Sinhala Language and Literature covering grammar, comprehension, essay writing, and selected prescribed texts.",
+      "program": "Ordinary Level (O/L)",
+      "durationValue": 4,
+      "durationUnit": "WEEKS",
+      "courseFee": "22000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 20,
+      "thumbnailUrl": "frontend/assets/courses/default.png",
+      "currentProgress": "Archived after March cohort",
+      "status": "ARCHIVED",
+      "instructors": ["nimali.perera@hitech.lk", "dinesh.fernando@hitech.lk"]
+    },
+    {
+      "title": "O/L Science",
+      "courseCode": "SE-WEB-120",
+      "description": "Comprehensive O/L Science covering biology, chemistry, and physics as per the national syllabus, with practical guidance.",
+      "program": "Ordinary Level (O/L)",
+      "durationValue": 10,
+      "durationUnit": "WEEKS",
+      "courseFee": "42000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 35,
+      "thumbnailUrl": "frontend/assets/courses/science.png",
+      "currentProgress": "Week 1: Cell Biology and Plant Structure",
+      "status": "ACTIVE",
+      "instructors": ["nimali.perera@hitech.lk"]
+    },
+    {
+      "title": "O/L English Language",
+      "courseCode": "SE-DB-130",
+      "description": "O/L English Language skills including reading comprehension, grammar, letter and essay writing, and spoken English practice.",
+      "program": "Ordinary Level (O/L)",
+      "durationValue": 8,
+      "durationUnit": "WEEKS",
+      "courseFee": "40000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 30,
+      "thumbnailUrl": "frontend/assets/courses/default.png",
+      "currentProgress": "Week 2: Reading Comprehension and Grammar",
+      "status": "ACTIVE",
+      "instructors": ["nimali.perera@hitech.lk"]
+    },
+    {
+      "title": "A/L Economics",
+      "courseCode": "DA-PY-220",
+      "description": "A/L Economics covering microeconomics, macroeconomics, international trade, money and banking, and the Sri Lankan economy.",
+      "program": "Advanced Level – Commerce Stream",
+      "durationValue": 10,
+      "durationUnit": "WEEKS",
+      "courseFee": "46000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 32,
+      "thumbnailUrl": "frontend/assets/courses/commerce.png",
+      "currentProgress": "Week 1: Introduction to Microeconomics",
+      "status": "ACTIVE",
+      "instructors": ["dinesh.fernando@hitech.lk"]
+    },
+    {
+      "title": "A/L Accounting",
+      "courseCode": "BM-ACC-120",
+      "description": "A/L Accounting including financial statements, cost and management accounting, partnerships, and company accounts.",
+      "program": "Advanced Level – Commerce Stream",
+      "durationValue": 6,
+      "durationUnit": "WEEKS",
+      "courseFee": "30000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 28,
+      "thumbnailUrl": "frontend/assets/courses/commerce.png",
+      "currentProgress": "Week 1: Double Entry and the Accounting Equation",
+      "status": "ACTIVE",
+      "instructors": ["dinesh.fernando@hitech.lk"]
+    },
+    {
+      "title": "A/L Combined Mathematics",
+      "courseCode": "SE-CLOUD-210",
+      "description": "A/L Combined Mathematics covering pure mathematics (algebra, calculus, vectors) and applied mathematics (mechanics and statistics).",
+      "program": "Advanced Level – Science Stream",
+      "durationValue": 8,
+      "durationUnit": "WEEKS",
+      "courseFee": "50000.00",
+      "enrollmentType": "OPEN",
+      "maxStudents": 30,
+      "thumbnailUrl": "frontend/assets/courses/maths.png",
+      "currentProgress": "Week 1: Algebra and Functions",
+      "status": "ACTIVE",
+      "instructors": ["nimali.perera@hitech.lk", "dinesh.fernando@hitech.lk"]
+    }
+  ],
+  "enrollments": [
+    {
+      "student": "kasun.jayasinghe@student.hitech.lk",
+      "courseCode": "SE-JAVA-101",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-0001",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "ayesha.silva@student.hitech.lk",
+      "courseCode": "SE-JAVA-101",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-0002",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "ayesha.silva@student.hitech.lk",
+      "courseCode": "DA-BIZ-201",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-0003",
+      "status": "COMPLETED"
+    },
+    {
+      "student": "meera.r@student.hitech.lk",
+      "courseCode": "BM-COMM-110",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-0004",
+      "status": "REMOVED"
+    },
+    {
+      "student": "chamod.lakshan@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1001",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "isuri.nanayakkara@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1002",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "ruwan.bandara@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1003",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "anjali.dias@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1004",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "naveen.rajapaksha@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1005",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "shalini.kumar@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1006",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "malith.senanayake@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1007",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "kaveesha.peiris@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1008",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "yusuf.ahamed@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1009",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "piumi.herath@student.hitech.lk",
+      "courseCode": "SE-WEB-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1010",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "chamod.lakshan@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1101",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "isuri.nanayakkara@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1102",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "ruwan.bandara@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1103",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "anjali.dias@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1104",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "naveen.rajapaksha@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1105",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "shalini.kumar@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1106",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "malith.senanayake@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1107",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "kaveesha.peiris@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1108",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "yusuf.ahamed@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1109",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "piumi.herath@student.hitech.lk",
+      "courseCode": "SE-DB-130",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1110",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "chamod.lakshan@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1201",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "isuri.nanayakkara@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1202",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "ruwan.bandara@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1203",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "anjali.dias@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1204",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "naveen.rajapaksha@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1205",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "shalini.kumar@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1206",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "malith.senanayake@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1207",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "kaveesha.peiris@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1208",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "yusuf.ahamed@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1209",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "piumi.herath@student.hitech.lk",
+      "courseCode": "DA-PY-220",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1210",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "chamod.lakshan@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1301",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "isuri.nanayakkara@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1302",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "ruwan.bandara@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1303",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "anjali.dias@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1304",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "naveen.rajapaksha@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1305",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "shalini.kumar@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1306",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "malith.senanayake@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1307",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "kaveesha.peiris@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1308",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "yusuf.ahamed@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1309",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "piumi.herath@student.hitech.lk",
+      "courseCode": "BM-ACC-120",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1310",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "chamod.lakshan@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1401",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "isuri.nanayakkara@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1402",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "ruwan.bandara@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1403",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "anjali.dias@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1404",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "naveen.rajapaksha@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1405",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "shalini.kumar@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1406",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "malith.senanayake@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1407",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "kaveesha.peiris@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1408",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "yusuf.ahamed@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1409",
+      "status": "ACTIVE"
+    },
+    {
+      "student": "piumi.herath@student.hitech.lk",
+      "courseCode": "SE-CLOUD-210",
+      "enrolledBy": "admin@hitech.com",
+      "paymentReference": "PAY-HIT-2026-1410",
+      "status": "ACTIVE"
+    }
+  ]
+}

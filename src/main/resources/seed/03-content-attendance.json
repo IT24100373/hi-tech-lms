@@ -1,0 +1,109 @@
+{
+  "contentNodes": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "nodeType": "WEEK",
+      "title": "Week 1: Number Systems and Basic Operations",
+      "sortOrder": 1
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "nodeType": "MODULE",
+      "title": "Module 1.1: Sets and Number Types",
+      "parentTitle": "Week 1: Number Systems and Basic Operations",
+      "sortOrder": 1
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "nodeType": "TOPIC",
+      "title": "Topic 1.1.1: Natural Numbers, Integers, and Fractions",
+      "parentTitle": "Module 1.1: Sets and Number Types",
+      "sortOrder": 1
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "nodeType": "WEEK",
+      "title": "Week 2: Algebra and Equations",
+      "sortOrder": 2
+    },
+    {
+      "courseCode": "DA-BIZ-201",
+      "nodeType": "WEEK",
+      "title": "Week 1: Introduction to Business Studies",
+      "sortOrder": 1
+    },
+    {
+      "courseCode": "DA-BIZ-201",
+      "nodeType": "MODULE",
+      "title": "Module 1.1: Business Terminology and Key Concepts",
+      "parentTitle": "Week 1: Introduction to Business Studies",
+      "sortOrder": 1
+    }
+  ],
+  "materials": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "nodeTitle": "Topic 1.1.1: Natural Numbers, Integers, and Fractions",
+      "title": "O/L Mathematics Resource Checklist",
+      "description": "Reference checklist covering key formulas, theorems, and recommended past paper resources for O/L Mathematics.",
+      "materialType": "PDF",
+      "fileUrl": "https://cdn.hitech.local/materials/ol-maths-resource-checklist.pdf",
+      "fileSizeBytes": 524288,
+      "version": 1,
+      "sortOrder": 1,
+      "uploadedBy": "nimali.perera@hitech.lk"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "nodeTitle": "Week 2: Algebra and Equations",
+      "title": "Algebra and Equations Walkthrough",
+      "description": "Recorded lesson covering linear equations, simultaneous equations, and basic inequalities with worked examples.",
+      "materialType": "VIDEO_LINK",
+      "fileUrl": "https://video.hitech.local/ol-maths/algebra-equations",
+      "version": 2,
+      "sortOrder": 1,
+      "uploadedBy": "nimali.perera@hitech.lk"
+    },
+    {
+      "courseCode": "DA-BIZ-201",
+      "nodeTitle": "Module 1.1: Business Terminology and Key Concepts",
+      "title": "Business Studies Key Terms Glossary",
+      "description": "Common terms used in marketing, human resources, production, and financial management for A/L Business Studies.",
+      "materialType": "EXTERNAL_URL",
+      "fileUrl": "https://kb.hitech.local/al-business/key-terms-glossary",
+      "version": 1,
+      "sortOrder": 1,
+      "uploadedBy": "dinesh.fernando@hitech.lk"
+    }
+  ],
+  "attendance": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "student": "kasun.jayasinghe@student.hitech.lk",
+      "date": "2026-04-20",
+      "status": "PRESENT",
+      "recordedBy": "nimali.perera@hitech.lk"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "student": "ayesha.silva@student.hitech.lk",
+      "date": "2026-04-20",
+      "status": "LATE",
+      "recordedBy": "nimali.perera@hitech.lk"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "student": "kasun.jayasinghe@student.hitech.lk",
+      "date": "2026-04-22",
+      "status": "EXCUSED",
+      "recordedBy": "nimali.perera@hitech.lk"
+    },
+    {
+      "courseCode": "DA-BIZ-201",
+      "student": "ayesha.silva@student.hitech.lk",
+      "date": "2026-04-21",
+      "status": "PRESENT",
+      "recordedBy": "dinesh.fernando@hitech.lk"
+    }
+  ]
+}

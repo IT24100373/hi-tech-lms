@@ -1,0 +1,67 @@
+{
+  "recurrenceGroups": [
+    {
+      "frequency": "WEEKLY",
+      "daysOfWeek": "MON,WED",
+      "repeatUntil": "2026-06-30"
+    }
+  ],
+  "sessions": [
+    {
+      "courseCode": "SE-JAVA-101",
+      "instructor": "nimali.perera@hitech.lk",
+      "recurrenceGroupIndex": 1,
+      "title": "O/L Mathematics: Algebra Practice Session",
+      "sessionDate": "2026-04-27",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "classType": "ONLINE",
+      "meetingPlatform": "ZOOM",
+      "meetingLink": "https://meet.hitech.local/ol-mathematics/algebra",
+      "notes": "Bring your Week 2 algebra exercise worksheets.",
+      "status": "SCHEDULED",
+      "createdBy": "admin@hitech.com"
+    },
+    {
+      "courseCode": "SE-JAVA-101",
+      "instructor": "nimali.perera@hitech.lk",
+      "recurrenceGroupIndex": 1,
+      "title": "O/L Mathematics: Geometry and Problem Solving",
+      "sessionDate": "2026-04-29",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "classType": "ONLINE",
+      "meetingPlatform": "ZOOM",
+      "meetingLink": "https://meet.hitech.local/ol-mathematics/geometry",
+      "notes": "Practice worksheet will be uploaded before class.",
+      "status": "SCHEDULED",
+      "createdBy": "admin@hitech.com"
+    },
+    {
+      "courseCode": "DA-BIZ-201",
+      "instructor": "dinesh.fernando@hitech.lk",
+      "title": "A/L Business Studies: Case Study Workshop",
+      "sessionDate": "2026-04-28",
+      "startTime": "09:30",
+      "endTime": "11:00",
+      "classType": "PHYSICAL",
+      "classLocation": "Room 204, Main Building",
+      "notes": "Use the business scenario workbook from the Week 1 content area.",
+      "status": "SCHEDULED",
+      "createdBy": "admin@hitech.com"
+    },
+    {
+      "courseCode": "BM-COMM-110",
+      "instructor": "dinesh.fernando@hitech.lk",
+      "title": "O/L Sinhala Language: Archived Cohort Wrap-up",
+      "sessionDate": "2026-03-28",
+      "startTime": "10:00",
+      "endTime": "12:00",
+      "classType": "PHYSICAL",
+      "classLocation": "Auditorium A",
+      "notes": "Final feedback session.",
+      "status": "COMPLETED",
+      "createdBy": "admin@hitech.com"
+    }
+  ]
+}

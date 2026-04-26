@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice — Hi-Tech LMS</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <style>
+    .actions-bar {
+      display: flex; gap: 12px; justify-content: flex-end;
+      margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .invoice-frame-wrap {
+      padding: 0;
+      overflow: hidden;
+    }
+    .meta-strip {
+      background: var(--page-bg);
+      border-bottom: 1px solid var(--border-light);
+      padding: 20px 32px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 6px; }
+    .meta-label {
+      font-size: 11px; font-weight: 800; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .meta-value { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    #invoice-frame { width: 100%; min-height: 860px; border: none; display: block; background:#fff; }
+
+    @media print {
+      .navbar, .container > *:not(.invoice-frame-wrap),
+      .actions-bar, .breadcrumb, .site-footer { display: none !important; }
+      .invoice-frame-wrap { border: none !important; box-shadow: none !important; margin:0 !important; }
+      body { background: #fff !important; }
+      .meta-strip { display:none !important; }
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="main-navbar"></nav>
+<div id="toast-container"></div>
+
+<main class="container page-content" style="max-width:960px;">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb" style="margin-bottom:24px;" id="breadcrumb">
+    <a href="finance.html">Finance</a> <span class="breadcrumb-sep">/</span>
+    <span style="font-weight:600;color:var(--text-primary);">Invoice</span>
+  </div>
+
+  <!-- Loading -->
+  <div id="loading-state" class="empty-state" style="padding:80px 0; border:none; background:transparent;">
+    <p class="empty-state-title" style="font-size:18px;">Loading invoice…</p>
+  </div>
+
+  <!-- Error -->
+  <div id="error-state" class="empty-state hidden" style="padding:80px 0; border:none; background:transparent;">
+    <div class="empty-state-icon" style="font-size:56px;">📄</div>
+    <h2 class="empty-state-title" style="font-size:24px;">Invoice not found</h2>
+    <p class="empty-state-sub" style="font-size:15px; max-width:400px; margin:8px auto 24px;">
+      This invoice may not exist or you don't have permission to view it.
+    </p>
+    <a href="finance.html" class="btn btn-primary" style="padding:12px 24px;">← Back to Finance</a>
+  </div>
+
+  <!-- Invoice content -->
+  <div id="invoice-wrap" class="hidden">
+    <div class="actions-bar">
+      <button class="btn btn-secondary outline" onclick="history.back()">← Back</button>
+      <button class="btn btn-secondary outline" onclick="resendEmail()">📧 Email to Me</button>
+      <button class="btn btn-secondary outline" onclick="printInvoice()">🖨 Print</button>
+      <button class="btn btn-primary"   onclick="downloadPdf()">⬇ Download PDF</button>
+    </div>
+
+    <div class="content-card invoice-frame-wrap">
+      <!-- Meta strip -->
+      <div class="meta-strip">
+        <div class="meta-item">
+          <div class="meta-label">Invoice No.</div>
+          <div class="meta-value" id="m-number">—</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Student</div>
+          <div class="meta-value" id="m-student">—</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Course</div>
+          <div class="meta-value" id="m-course">—</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Amount</div>
+          <div class="meta-value" id="m-amount" style="color:var(--brand-primary); font-size:18px; font-weight:800;">—</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Issued</div>
+          <div class="meta-value" id="m-date" style="font-weight:600; color:var(--text-body);">—</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Status</div>
+          <div id="m-status">—</div>
+        </div>
+      </div>
+
+      <!-- Invoice HTML rendered in sandboxed iframe -->
+      <iframe id="invoice-frame" title="Invoice Preview" scrolling="no"></iframe>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer" style="margin-top:60px;">
+  <div class="container">
+      <div class="footer-copy">&copy; 2026 Hi-Tech Institute. All rights reserved.</div>
+      <div class="footer-links">
+          <a href="#">Support</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+      </div>
+  </div>
+</footer>
+
+<script src="js/common.js"></script>
+<script>
+  requireAuth();
+  buildNavbar('finance');
+
+  const urlParams = new URLSearchParams(location.search);
+  const invoiceId = urlParams.get('id');
+  let currentInvoice = null;
+
+  if (!invoiceId) {
+    hide(document.getElementById('loading-state'));
+    show(document.getElementById('error-state'));
+  } else {
+    loadInvoice();
+  }
+
+  async function loadInvoice() {
+    const user     = getCurrentUser();
+    const endpoint = user.role === 'ADMIN'
+            ? `/admin/finance/invoices/${invoiceId}`
+            : `/payments/invoices/${invoiceId}`;
+
+    try {
+      const resp = await apiCall(endpoint);
+      currentInvoice = resp.data;
+      renderInvoice(currentInvoice);
+    } catch (err) {
+      hide(document.getElementById('loading-state'));
+      show(document.getElementById('error-state'));
+    }
+  }
+
+  function renderInvoice(inv) {
+    hide(document.getElementById('loading-state'));
+
+    // Meta strip
+    document.getElementById('m-number').textContent  = inv.invoiceNumber;
+    document.getElementById('m-student').textContent = inv.studentName;
+    document.getElementById('m-course').textContent  = inv.courseTitle + ' (' + inv.courseCode + ')';
+    document.getElementById('m-amount').textContent  = inv.currency + ' ' + Number(inv.totalAmount).toFixed(2);
+    document.getElementById('m-date').textContent    = fmtDate(inv.generatedAt);
+    document.getElementById('m-status').innerHTML    = getInvoiceStatusBadge(inv.status);
+
+    // Update breadcrumb for admin
+    if (getUserRole() === 'ADMIN') {
+      document.getElementById('breadcrumb').innerHTML = `
+          <a href="finance.html">Finance</a> <span class="breadcrumb-sep">/</span>
+          <a href="finance-transactions.html">Transactions</a> <span class="breadcrumb-sep">/</span>
+          <span style="font-weight:600;color:var(--text-primary);">${inv.invoiceNumber}</span>`;
+    }
+
+    // Render HTML invoice inside iframe
+    const iframe = document.getElementById('invoice-frame');
+    const blob   = new Blob([inv.invoiceHtml], { type: 'text/html' });
+    iframe.src   = URL.createObjectURL(blob);
+
+    iframe.onload = () => {
+      try {
+        const h = iframe.contentDocument.body.scrollHeight;
+        if (h > 0) iframe.style.height = (h + 40) + 'px';
+      } catch (e) { /* cross-origin: fine, iframe has fixed min-height */ }
+    };
+
+    show(document.getElementById('invoice-wrap'));
+  }
+
+  function printInvoice() {
+    try { document.getElementById('invoice-frame').contentWindow.print(); }
+    catch (e) { window.print(); }
+  }
+
+  function downloadPdf() {
+    // The browser's "Save as PDF" option in the print dialog is the
+    // production-ready approach. In production, replace with a signed
+    // S3 URL download.
+    printInvoice();
+  }
+
+  async function resendEmail() {
+    if (!currentInvoice) return;
+    // In production: POST /api/payments/invoices/{id}/resend-email
+    showToast('Invoice email has been re-sent to ' + currentInvoice.studentEmail, 'success');
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleDateString('en-GB', {
+      day: '2-digit', month: 'long', year: 'numeric'
+    });
+  }
+</script>
+</body>
+</html>

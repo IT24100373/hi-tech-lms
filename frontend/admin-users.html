@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management — Hi-Tech Institute LMS</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+
+<body>
+
+    <nav class="navbar" id="main-navbar"></nav>
+    <div id="toast-container"></div>
+
+    <!-- Bulk Import Modal -->
+    <div class="modal-overlay" id="bulk-import-modal">
+        <div class="modal" style="max-width: 600px;">
+            <div id="import-step-1">
+                <h3 class="modal-title">Bulk Import Users (CSV)</h3>
+                <p class="modal-body">
+                    Upload a CSV file to create multiple accounts at once. Roles such as STUDENT, INSTRUCTOR, and ADMIN are supported.<br>
+                    <a href="#" onclick="downloadCsvTemplate(event)" style="font-size:13px;">↓ Download CSV Template</a>
+                </p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="csv-file">Select CSV File *</label>
+                    <input type="file" id="csv-file" accept=".csv" class="form-control" style="padding: 8px;">
+                </div>
+                
+                <div class="modal-footer" style="margin-top:24px;">
+                    <button class="btn btn-secondary" onclick="closeBulkImportModal()">Cancel</button>
+                    <button class="btn btn-primary" id="btn-upload-csv" onclick="processBulkImport()">Upload & Process</button>
+                </div>
+            </div>
+            
+            <div id="import-step-2" style="display:none;">
+                <h3 class="modal-title">Import Results</h3>
+                <div id="import-summary" class="alert alert-info" style="margin-bottom: 20px;"></div>
+                
+                <div style="max-height: 300px; overflow-y: auto; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 24px;">
+                    <table class="content-table" style="font-size: 13px;">
+                        <thead style="position: sticky; top: 0; background: var(--gray-50); z-index: 10;">
+                            <tr>
+                                <th>Row</th>
+                                <th>Status</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="import-results-body">
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="closeBulkImportModal(true)">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal (Deactivate / Reactivate) -->
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal">
+            <h3 class="modal-title" id="modal-title">Deactivate Account</h3>
+            <p class="modal-body" id="modal-body">Are you sure?</p>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-danger" id="modal-confirm-btn" onclick="confirmAction()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container page-content">
+        <div class="page-header">
+            <div class="page-header-left">
+                <h1>User Management</h1>
+                <p>Manage all LMS user accounts</p>
+            </div>
+            <div style="display:flex; gap:12px;">
+                <button class="btn btn-secondary" onclick="openBulkImportModal()">Bulk Import CSV</button>
+                <a href="admin-user-form.html" class="btn btn-primary">+ Add New User</a>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="content-card" style="padding:0; margin-bottom:20px;">
+            <div class="filter-bar" style="border-radius: 16px;">
+                <input type="text" id="search-input" class="form-control search-input"
+                    placeholder="🔍 Search by name or email...">
+
+                <select id="role-filter" class="form-control" style="max-width:160px;">
+                    <option value="">All Roles</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="INSTRUCTOR">Instructor</option>
+                    <option value="STUDENT">Student</option>
+                </select>
+
+                <select id="status-filter" class="form-control" style="max-width:180px;">
+                    <option value="">All Statuses</option>
+                    <option value="ACTIVE">Active</option>
+                    <option value="INACTIVE">Inactive</option>
+                    <option value="PENDING_VERIFICATION">Pending</option>
+                </select>
+
+                <button class="btn btn-secondary btn-sm" onclick="resetFilters()">Reset</button>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="content-card" style="padding:0;">
+            <div class="content-card-hdr" style="margin: 22px 22px 16px 22px;">
+                <span class="content-card-title">All Users</span>
+                <span id="user-count" class="text-sm text-muted"></span>
+            </div>
+
+            <!-- Loading skeleton -->
+            <div id="table-loading" class="table-wrapper">
+                <table class="content-table">
+                    <tbody id="skeleton-body"></tbody>
+                </table>
+            </div>
+
+            <!-- Data table -->
+            <div class="table-wrapper hidden" id="table-container">
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Registered</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body"></tbody>
+                </table>
+            </div>
+
+            <!-- Empty state -->
+            <div class="hidden empty-state" id="empty-state">
+                <div class="empty-state-icon">🔍</div>
+                <p class="empty-state-title">No users found matching your filters.</p>
+                <button class="btn btn-secondary btn-sm mt-2" onclick="resetFilters()">
+                    Clear Filters
+                </button>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination-bar" style="display:none;">
+                <span id="pagination-info" class="text-sm text-muted"></span>
+                <div class="pagination-controls">
+                    <button class="page-btn" id="prev-btn" onclick="goToPage(currentPage - 1)">‹</button>
+                    <div id="page-numbers" class="pagination-controls"></div>
+                    <button class="page-btn" id="next-btn" onclick="goToPage(currentPage + 1)">›</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-copy">&copy; 2026 Hi-Tech Institute. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="#">Support</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        requireAuth();
+        if (getUserRole() !== 'ADMIN') { window.location.href = 'dashboard.html'; }
+        buildNavbar('users');
+
+        let currentPage = 0;
+        let totalPages = 0;
+        let totalItems = 0;
+        let pendingAction = null; // { userId, action: 'deactivate' | 'reactivate', userName }
+
+        // Build loading skeleton rows
+        const skeletonBody = document.getElementById('skeleton-body');
+        for (let i = 0; i < 8; i++) {
+            skeletonBody.innerHTML += `
+            <tr>
+                <td><div class="skeleton" style="width:180px;height:16px;"></div></td>
+                <td><div class="skeleton" style="width:80px;height:16px;"></div></td>
+                <td><div class="skeleton" style="width:70px;height:16px;"></div></td>
+                <td><div class="skeleton" style="width:90px;height:16px;"></div></td>
+                <td><div class="skeleton" style="width:120px;height:16px;"></div></td>
+            </tr>`;
+        }
+
+        // Load users on page load
+        loadUsers();
+
+        // Debounced search input
+        let searchTimeout;
+        document.getElementById('search-input').addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => { currentPage = 0; loadUsers(); }, 350);
+        });
+
+        document.getElementById('role-filter').addEventListener('change', () => { currentPage = 0; loadUsers(); });
+        document.getElementById('status-filter').addEventListener('change', () => { currentPage = 0; loadUsers(); });
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('role-filter').value = '';
+            document.getElementById('status-filter').value = '';
+            currentPage = 0;
+            loadUsers();
+        }
+
+        async function loadUsers() {
+            const search = document.getElementById('search-input').value.trim();
+            const role = document.getElementById('role-filter').value;
+            const status = document.getElementById('status-filter').value;
+
+            show(document.getElementById('table-loading'));
+            hide(document.getElementById('table-container'));
+            hide(document.getElementById('empty-state'));
+            document.getElementById('pagination-bar').style.display = 'none';
+
+            const params = new URLSearchParams({
+                page: currentPage, size: 25,
+                ...(search ? { search } : {}),
+                ...(role ? { role } : {}),
+                ...(status ? { status } : {})
+            });
+
+            try {
+                const res = await apiCall(`/admin/users?${params}`);
+                const page = res.data;
+                totalPages = page.totalPages;
+                totalItems = page.totalElements;
+
+                hide(document.getElementById('table-loading'));
+
+                if (page.content.length === 0) {
+                    show(document.getElementById('empty-state'));
+                } else {
+                    renderUsers(page.content);
+                    show(document.getElementById('table-container'));
+                    renderPagination(page);
+                }
+
+                document.getElementById('user-count').textContent =
+                    `${totalItems} user${totalItems !== 1 ? 's' : ''} total`;
+
+            } catch (err) {
+                hide(document.getElementById('table-loading'));
+                showToast('Failed to load users: ' + err.message, 'error');
+            }
+        }
+
+        function renderUsers(users) {
+            const currentUserId = getCurrentUser()?.id;
+            document.getElementById('users-table-body').innerHTML = users.map(u => {
+                const isMe = u.id == currentUserId;
+                const canDeactivate = !isMe && u.accountStatus === 'ACTIVE';
+                const canReactivate = u.accountStatus === 'INACTIVE';
+
+                return `
+            <tr>
+                <td>
+                    <div class="table-avatar">
+                        <div class="user-avatar" style="font-size:12px;">${getInitials(u.fullName)}</div>
+                        <div>
+                            <div class="table-avatar-name">${u.fullName} ${isMe ? '<span style="font-size:11px;color:var(--primary);">(You)</span>' : ''}</div>
+                            <div class="table-avatar-email">${u.email}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>${getRoleBadge(u.role)}</td>
+                <td>${getStatusBadge(u.accountStatus)}</td>
+                <td style="color:var(--gray-500);font-size:13px;">${formatDate(u.createdAt)}</td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="admin-user-form.html?id=${u.id}" class="btn btn-sm btn-secondary" title="Edit">✏️</a>
+                        ${canDeactivate ? `<button class="btn btn-sm btn-danger" onclick="openDeactivateModal(${u.id}, '${u.fullName}')" title="Deactivate">🔒</button>` : ''}
+                        ${canReactivate ? `<button class="btn btn-sm btn-success" onclick="openReactivateModal(${u.id}, '${u.fullName}')" title="Reactivate">🔓</button>` : ''}
+                        ${isMe ? `<span class="text-sm text-muted" title="Cannot modify your own account">🔒 You</span>` : ''}
+                    </div>
+                </td>
+            </tr>`;
+            }).join('');
+        }
+
+        function renderPagination(page) {
+            const bar = document.getElementById('pagination-bar');
+            const start = page.number * page.size + 1;
+            const end = Math.min(start + page.size - 1, page.totalElements);
+            document.getElementById('pagination-info').textContent =
+                `Showing ${start}–${end} of ${page.totalElements} users`;
+
+            const pageNums = document.getElementById('page-numbers');
+            pageNums.innerHTML = '';
+            for (let i = 0; i < page.totalPages; i++) {
+                if (page.totalPages > 7 && Math.abs(i - currentPage) > 2 && i !== 0 && i !== page.totalPages - 1) {
+                    if (Math.abs(i - currentPage) === 3) pageNums.innerHTML += `<span style="padding:0 4px;color:var(--gray-400);">…</span>`;
+                    continue;
+                }
+                pageNums.innerHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i + 1}</button>`;
+            }
+
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = currentPage >= page.totalPages - 1;
+            bar.style.display = 'flex';
+        }
+
+        function goToPage(p) {
+            if (p < 0 || p >= totalPages) return;
+            currentPage = p;
+            loadUsers();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ---- Deactivate / Reactivate Modal ----
+        function openDeactivateModal(userId, userName) {
+            pendingAction = { userId, action: 'deactivate', userName };
+            document.getElementById('modal-title').textContent = 'Deactivate Account';
+            document.getElementById('modal-body').innerHTML =
+                `Are you sure you want to deactivate <strong>${userName}</strong>'s account?<br>
+             <span style="color:var(--danger);font-size:13px;">This will immediately end any active sessions.</span>`;
+            document.getElementById('modal-confirm-btn').className = 'btn btn-danger';
+            document.getElementById('modal-confirm-btn').textContent = 'Deactivate';
+            document.getElementById('confirm-modal').classList.add('open');
+        }
+
+        function openReactivateModal(userId, userName) {
+            pendingAction = { userId, action: 'reactivate', userName };
+            document.getElementById('modal-title').textContent = 'Reactivate Account';
+            document.getElementById('modal-body').innerHTML =
+                `Are you sure you want to reactivate <strong>${userName}</strong>'s account?`;
+            document.getElementById('modal-confirm-btn').className = 'btn btn-success';
+            document.getElementById('modal-confirm-btn').textContent = 'Reactivate';
+            document.getElementById('confirm-modal').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('confirm-modal').classList.remove('open');
+            pendingAction = null;
+        }
+
+        async function confirmAction() {
+            if (!pendingAction) return;
+            const { userId, action, userName } = pendingAction;
+            const confirmBtn = document.getElementById('modal-confirm-btn');
+            setLoading(confirmBtn, true, 'Processing...');
+
+            try {
+                const endpoint = action === 'deactivate'
+                    ? `/admin/users/${userId}/deactivate`
+                    : `/admin/users/${userId}/reactivate`;
+                await apiCall(endpoint, { method: 'POST' });
+                showToast(`${userName}'s account has been ${action === 'deactivate' ? 'deactivated' : 'reactivated'}.`,
+                    action === 'deactivate' ? 'info' : 'success');
+                closeModal();
+                loadUsers();
+            } catch (err) {
+                setLoading(confirmBtn, false);
+                showToast(err.message || 'Action failed.', 'error');
+            }
+        }
+
+        // Close modal on overlay click
+        document.getElementById('confirm-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ---- Bulk Import Flow ----
+        function openBulkImportModal() {
+            document.getElementById('csv-file').value = '';
+            document.getElementById('import-step-1').style.display = 'block';
+            document.getElementById('import-step-2').style.display = 'none';
+            document.getElementById('bulk-import-modal').classList.add('open');
+        }
+
+        function closeBulkImportModal(reload = false) {
+            document.getElementById('bulk-import-modal').classList.remove('open');
+            if (reload) {
+                currentPage = 0;
+                loadUsers();
+            }
+        }
+
+        async function processBulkImport() {
+            const fileInput = document.getElementById('csv-file');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                showToast('Please select a CSV file to upload.', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('btn-upload-csv');
+            setLoading(btn, true, 'Processing...');
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const token = getToken();
+                const response = await fetch(API_BASE + '/admin/users/bulk-import', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Import failed');
+                }
+
+                showImportResults(data.data);
+            } catch (err) {
+                showToast(err.message, 'error');
+            } finally {
+                setLoading(btn, false);
+            }
+        }
+
+        function showImportResults(summary) {
+            document.getElementById('import-step-1').style.display = 'none';
+            document.getElementById('import-step-2').style.display = 'block';
+            
+            const alertClass = summary.errors > 0 ? 'alert-warning' : 'alert-success';
+            document.getElementById('import-summary').className = `alert ${alertClass}`;
+            document.getElementById('import-summary').innerHTML = `
+                <span class="alert-icon">${summary.errors > 0 ? '⚠️' : '✅'}</span>
+                <span>Processed ${summary.totalRows} rows: <strong>${summary.created} Created</strong>, ${summary.skipped} Skipped, ${summary.errors} Errors.</span>
+            `;
+
+            const tbody = document.getElementById('import-results-body');
+            tbody.innerHTML = summary.results.map(r => {
+                let statusBadge = '';
+                if (r.status === 'CREATED') statusBadge = '<span class="badge badge-success" style="background:var(--success-light);color:var(--success)">Created</span>';
+                else if (r.status === 'SKIPPED') statusBadge = '<span class="badge badge-warning" style="background:var(--warning-light);color:var(--warning)">Skipped</span>';
+                else statusBadge = '<span class="badge badge-danger" style="background:var(--danger-light);color:var(--danger)">Error</span>';
+                
+                return `
+                <tr>
+                    <td>${r.rowNumber}</td>
+                    <td>${statusBadge}</td>
+                    <td>${r.email || '-'}</td>
+                    <td>${r.message}</td>
+                </tr>
+                `;
+            }).join('');
+        }
+
+        function downloadCsvTemplate(e) {
+            e.preventDefault();
+            const csvContent = "fullName,email,role,phoneNumber\nJohn Doe,john.doe@example.com,STUDENT,0712345678\nJane Smith,jane.instructor@example.com,INSTRUCTOR,0776543210\nSam Admin,sam@example.com,ADMIN,\n";
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'hitech_users_template.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+
+</html>
